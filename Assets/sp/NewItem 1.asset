@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: NewItem 1
   m_EditorClassIdentifier: 
   point: 20
+  itemname: 123

@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 
 public class Player : MonoBehaviour
@@ -11,6 +13,7 @@ public class Player : MonoBehaviour
     public float score;
 
     public TextMeshProUGUI ScoreText;
+    public GameObject GameOverPanel;
 
     [SerializeField] Sprite spriteUp;
     [SerializeField] Sprite spriteDown;
@@ -71,8 +74,21 @@ public class Player : MonoBehaviour
     {
         if (collision.CompareTag("Item"))
         {
+            ItemObject item = collision.GetComponent<ItemObject>();
+            
             score += collision.GetComponent<ItemObject>().GetPoint();
+
+            GameDataManager.Instance.playerData.collectedItms.Add(item.GetName());
+
             Destroy(collision.gameObject);
+
+            GameDataManager.Instance.SaveData(GameDataManager.Instance.playerData);
+        }
+        if (collision.CompareTag("Enemy"))
+        {
+            //SceneManager.LoadScene("Leve_1");
+            GameOverPanel.SetActive(true);
+            
         }
     }
 

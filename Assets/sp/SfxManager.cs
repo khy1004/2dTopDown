@@ -21,8 +21,8 @@ public class SfxManager : MonoBehaviour
     }
     public void Letsgo()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Leve_1");
-
+        //UnityEngine.SceneManagement.SceneManager.LoadScene("Leve_1");
+        GameDataManager.Instance.GameStart();
     }
 
 }

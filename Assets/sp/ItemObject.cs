@@ -5,20 +5,15 @@ using UnityEngine;
 public class ItemObject : MonoBehaviour
 {
     [SerializeField] ItemSO data;
+    [SerializeField]
 
     public int GetPoint()
     {
         return data.point;
     }
-    // Start is called before the first frame update
-    void Start()
+    public string GetName()
     {
-        
+        return data.itemname;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-}
+}   

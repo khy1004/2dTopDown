@@ -1,22 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-[CreateAssetMenu(menuName = "Game/Item", fileName = "NewItem")]
-
-
-public class ItemSO : ScriptableObject
+public class LevelObject : MonoBehaviour
 {
-    [Header("Score Value")]
-
-    public int point = 10;
-
-    public string itemname;
-
     // Start is called before the first frame update
-    void Start()
+    public string nextLevel;
+    public void MoveToNextLeve()
     {
-        
+        SceneManager.LoadScene(nextLevel);   
     }
 
     // Update is called once per frame
