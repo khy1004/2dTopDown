@@ -51,14 +51,15 @@ public class Player : MonoBehaviour
                 else if (input.x < 0)
                     sR.sprite = spriteLeft;
             }
-        }
-        else
-        {
-            if (input.y > 0)
-                sR.sprite = spriteUp;
             else
-                sR.sprite = spriteDown;
+            {
+                if (input.y > 0)
+                    sR.sprite = spriteUp;
+                else
+                    sR.sprite = spriteDown;
+            }
         }
+       
 
         ScoreText.text = "Score" + score.ToString();
     }
@@ -74,21 +75,24 @@ public class Player : MonoBehaviour
     {
         if (collision.CompareTag("Item"))
         {
-            ItemObject item = collision.GetComponent<ItemObject>();
-            
-            score += collision.GetComponent<ItemObject>().GetPoint();
-
-            GameDataManager.Instance.playerData.collectedItms.Add(item.GetName());
-
             Destroy(collision.gameObject);
 
-            GameDataManager.Instance.SaveData(GameDataManager.Instance.playerData);
+            ItemObject item = collision.GetComponent<ItemObject>();
+            
+           score += collision.GetComponent<ItemObject>().GetPoint();
+
+           GameDataManager.Instance.playerData.collectedItms.Add(item.GetName());
+
+           GameDataManager.Instance.SaveData(GameDataManager.Instance.playerData);
         }
         if (collision.CompareTag("Enemy"))
         {
-            //SceneManager.LoadScene("Leve_1");
-            GameOverPanel.SetActive(true);
-            
+            Time.timeScale = 0;
+            GameOverPanel.SetActive(true);  
+        }
+        if(collision.CompareTag("Finish"))
+        {
+            collision.GetComponent<LevelObject>().MoveToNextLeve();
         }
     }
 
