@@ -11,6 +11,7 @@ TagManager:
   - Speed
   - Jump
   - Obstacle
+  - Shop
   layers:
   - Default
   - TransparentFX

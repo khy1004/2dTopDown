@@ -5,7 +5,6 @@ using UnityEngine;
 public class ItemObject : MonoBehaviour
 {
     [SerializeField] ItemSO data;
-    [SerializeField]
 
     public int GetPoint()
     {
@@ -14,6 +13,10 @@ public class ItemObject : MonoBehaviour
     public string GetName()
     {
         return data.itemname;
+    }
+    public int GetCoin()
+    {
+        return data.coin;
     }
 
 }   

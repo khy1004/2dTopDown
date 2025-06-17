@@ -13,6 +13,8 @@ public class ItemSO : ScriptableObject
 
     public string itemname;
 
+    public int coin = 10;
+
     // Start is called before the first frame update
     void Start()
     {

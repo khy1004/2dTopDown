@@ -9,11 +9,15 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class Player : MonoBehaviour
 {
-    float moveSpeed = 2f;
+   public float moveSpeed = 2f;
     public float score;
+    public float Coin;
 
     public TextMeshProUGUI ScoreText;
+    public TextMeshProUGUI CoinText;
+
     public GameObject GameOverPanel;
+    public GameObject ShopPanel;
 
     [SerializeField] Sprite spriteUp;
     [SerializeField] Sprite spriteDown;
@@ -31,8 +35,6 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sR = GetComponent<SpriteRenderer>();
         rb.bodyType = RigidbodyType2D.Kinematic;
-
-  
     }
 
     private void Update()
@@ -61,7 +63,8 @@ public class Player : MonoBehaviour
         }
        
 
-        ScoreText.text = "Score" + score.ToString();
+        ScoreText.text = "Score : " + score.ToString();
+        CoinText.text = "Coin : " + Coin.ToString();
     }
 
    
@@ -81,6 +84,8 @@ public class Player : MonoBehaviour
             
            score += collision.GetComponent<ItemObject>().GetPoint();
 
+            Coin += collision.GetComponent<ItemObject>().GetCoin();
+
            GameDataManager.Instance.playerData.collectedItms.Add(item.GetName());
 
            GameDataManager.Instance.SaveData(GameDataManager.Instance.playerData);
@@ -93,6 +98,11 @@ public class Player : MonoBehaviour
         if(collision.CompareTag("Finish"))
         {
             collision.GetComponent<LevelObject>().MoveToNextLeve();
+        }
+        if (collision.CompareTag(("Shop")))
+        {
+            Time.timeScale = 0;
+            ShopPanel.SetActive(true);
         }
     }
 
