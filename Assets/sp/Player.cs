@@ -12,6 +12,12 @@ public class Player : MonoBehaviour
    public float moveSpeed = 2f;
     public float score;
     public float Coin;
+    
+    public int MaxHp = 5;
+    public int Hp;
+   
+   /* public float invincible = 3.0f;
+    public bool islnvincible = false;*/
 
     public TextMeshProUGUI ScoreText;
     public TextMeshProUGUI CoinText;
@@ -29,6 +35,11 @@ public class Player : MonoBehaviour
 
     Vector2 input;
     Vector2 velocity;
+
+    private void Start()
+    {
+        Hp = 2;
+    }
 
     private void Awake()
     {
@@ -61,6 +72,11 @@ public class Player : MonoBehaviour
                     sR.sprite = spriteDown;
             }
         }
+        /*if(islnvincible == true)
+        {
+            yield return new WaitForSeconds(invincible);
+            isInvincible false;
+        }*/
        
 
         ScoreText.text = "Score : " + score.ToString();
@@ -92,8 +108,16 @@ public class Player : MonoBehaviour
         }
         if (collision.CompareTag("Enemy"))
         {
-            Time.timeScale = 0;
-            GameOverPanel.SetActive(true);  
+            if(Hp == 0)
+            {
+                Time.timeScale = 0;
+                GameOverPanel.SetActive(true);
+            }
+            else
+            {
+                Hp--;
+                //islnvincible = true;
+            }
         }
         if(collision.CompareTag("Finish"))
         {
