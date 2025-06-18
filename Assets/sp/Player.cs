@@ -10,8 +10,8 @@ using UnityEngine.SocialPlatforms.Impl;
 public class Player : MonoBehaviour
 {
    public float moveSpeed = 2f;
-    public float score;
-    public float Coin;
+    public int score;
+    public int Coin;
     
     public int MaxHp = 5;
     public int Hp;
@@ -38,14 +38,21 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        Hp = 2;
+        Hp = GameDataManager.Instance.playerData.Hp;
+        if (Hp == 0)
+            Hp = 2;
+        Coin = GameDataManager.Instance.playerData.Coin;
+        score = GameDataManager.Instance.playerData.score;
+        
+        moveSpeed = GameDataManager.Instance.playerData.moveSpeed;
+        if (moveSpeed == 0)
+            moveSpeed = 2;
     }
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         sR = GetComponent<SpriteRenderer>();
-        rb.bodyType = RigidbodyType2D.Kinematic;
     }
 
     private void Update()
@@ -99,12 +106,17 @@ public class Player : MonoBehaviour
             ItemObject item = collision.GetComponent<ItemObject>();
             
            score += collision.GetComponent<ItemObject>().GetPoint();
+           
 
             Coin += collision.GetComponent<ItemObject>().GetCoin();
 
+
+            GameDataManager.Instance.playerData.score = score;
+            
+            GameDataManager.Instance.playerData.Coin = Coin;
            GameDataManager.Instance.playerData.collectedItms.Add(item.GetName());
 
-           GameDataManager.Instance.SaveData(GameDataManager.Instance.playerData);
+           GameDataManager.Instance.SaveData();
         }
         if (collision.CompareTag("Enemy"))
         {

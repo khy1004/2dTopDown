@@ -9,6 +9,7 @@ public class LevelObject : MonoBehaviour
     public string nextLevel;
     public void MoveToNextLeve()
     {
+        GameDataManager.Instance.SaveData();
         SceneManager.LoadScene(nextLevel);   
     }
 

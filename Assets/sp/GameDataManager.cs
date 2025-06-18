@@ -14,6 +14,10 @@ public class PlayerData
     public List<string> collectedItms = new List<string>();
 
     public int stage = 1;
+    public int Coin;
+    public int score;
+    public float moveSpeed = 2;
+    public int Hp;
 }
 
 public class GameDataManager : MonoBehaviour
@@ -35,7 +39,7 @@ public class GameDataManager : MonoBehaviour
         }
     }
 
-    public void SaveData(PlayerData playerData)
+    public void SaveData()
     {
         string filepath = Application.persistentDataPath +"/player_data.json";
         string json = JsonUtility.ToJson(playerData, true);
@@ -75,20 +79,20 @@ public class GameDataManager : MonoBehaviour
 
     public void PlayerDead()
     {
-        PlayerData playerData = LoadData();
-        if (playerData != null)
+        PlayerData _playerData = LoadData();
+        if (_playerData != null)
         {
-            playerData.stage = 1;
+            _playerData.stage = 1;
 
-            foreach (string item in playerData.collectedItms.ToList())
+            foreach (string item in _playerData.collectedItms.ToList())
             {
                 if (UnityEngine.Random.Range(0, 1) == 0)
                 {
-                    playerData.collectedItms.Remove(item);
+                    _playerData.collectedItms.Remove(item);
                 }
             }
-
-            SaveData(playerData);
+            playerData = _playerData;
+            SaveData();
         }
         SceneManager.LoadScene("GameOver");
     }
