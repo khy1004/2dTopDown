@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyTraceController : MonoBehaviour
 {
-    public float moveSpeed = .5f;
+    public float moveSpeed = 0.5f;
     public float raycastDistance = .2f;
     public float traceDitstance = 2f;
 
