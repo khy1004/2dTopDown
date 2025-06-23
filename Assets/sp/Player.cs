@@ -6,13 +6,15 @@ using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
    public float moveSpeed = 2f;
     public int score;
     public int Coin;
-    
+
+    public Slider HpSlide;
     public int MaxHp = 5;
     public int Hp;
    
@@ -84,7 +86,11 @@ public class Player : MonoBehaviour
             yield return new WaitForSeconds(invincible);
             isInvincible false;
         }*/
-       
+        if (Hp <= 0)
+        {
+            Time.timeScale = 0;
+            GameOverPanel.SetActive(true);
+        }
 
         ScoreText.text = "Score : " + score.ToString();
         CoinText.text = "Coin : " + Coin.ToString();
@@ -120,16 +126,9 @@ public class Player : MonoBehaviour
         }
         if (collision.CompareTag("Enemy"))
         {
-            if(Hp == 0)
-            {
-                Time.timeScale = 0;
-                GameOverPanel.SetActive(true);
-            }
-            else
-            {
-                Hp--;
-                //islnvincible = true;
-            }
+            Hp--;
+            //islnvincible = true;
+           
         }
         if(collision.CompareTag("Finish"))
         {
@@ -141,5 +140,6 @@ public class Player : MonoBehaviour
             ShopPanel.SetActive(true);
         }
     }
+
 
 }
