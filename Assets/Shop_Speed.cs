@@ -31,19 +31,19 @@ public class Shop_Speed : MonoBehaviour
     public void CheckCoinAddHP()
     {
 
-        if (player.Coin >= 50 && player.Hp <= 5)
+        if (player.Coin >= 50 && player.Hp <= 5f)
         {
-            player.Hp += 1;
+            player.Hp += 1.0f;
             player.Coin -= 50;
             CheckText.text = "+ Hp";
             GameDataManager.Instance.playerData.Hp = player.Hp;
             GameDataManager.Instance.SaveData();
         }
-        else if (player.Coin < 50 && player.Hp <= 5)
+        else if (player.Coin < 50 && player.Hp <= 5f)
         {
             CheckText.text = "돈이 모자라요.";
         }
-        else if (player.Hp >= 5 && player.Coin >= 50)
+        else if (player.Hp >= 5f && player.Coin >= 50)
         {
             CheckText.text = "이미 최대 체력입니다.";
         }

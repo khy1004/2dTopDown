@@ -17,7 +17,7 @@ public class PlayerData
     public int Coin;
     public int score;
     public float moveSpeed = 2;
-    public int Hp;
+    public float Hp;
 }
 
 public class GameDataManager : MonoBehaviour

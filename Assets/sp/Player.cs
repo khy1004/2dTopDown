@@ -15,8 +15,8 @@ public class Player : MonoBehaviour
     public int Coin;
 
     public Slider HpSlide;
-    public int MaxHp = 5;
-    public int Hp;
+    public float MaxHp = 5;
+    public float Hp;
    
    /* public float invincible = 3.0f;
     public bool islnvincible = false;*/
@@ -92,6 +92,10 @@ public class Player : MonoBehaviour
             GameOverPanel.SetActive(true);
         }
 
+        
+
+        UpdateHPUI();
+
         ScoreText.text = "Score : " + score.ToString();
         CoinText.text = "Coin : " + Coin.ToString();
     }
@@ -126,7 +130,7 @@ public class Player : MonoBehaviour
         }
         if (collision.CompareTag("Enemy"))
         {
-            Hp--;
+            DecreaseHP(1.0f);
             //islnvincible = true;
            
         }
@@ -141,5 +145,16 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void DecreaseHP(float bar)     
+    {
+        Hp -= bar;
+        Hp = Mathf.Clamp(Hp, 0f, MaxHp);
+        UpdateHPUI();
+    }
 
+    void UpdateHPUI()
+    {
+        if (HpSlide != null)
+            HpSlide.value = Hp;
+    }
 }
